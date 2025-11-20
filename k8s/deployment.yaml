@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: DevMasters
+spec:
+  replicas: 3  # <--- ¡IMPORTANTE! Mínimo 2 para Alta Disponibilidad.
+  selector:
+    matchLabels:
+      app: DevMasters
+  template:
+    metadata:
+      labels:
+        app: DevMasters
+    spec:
+      containers:
+      - name: contenedor1
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: balanceador
+spec:
+  type: LoadBalancer  # <--- Esto activa la distribución de tráfico
+  selector:
+    app: DevMasters
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
