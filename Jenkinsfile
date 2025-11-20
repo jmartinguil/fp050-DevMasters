@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Construir') {
             steps {
-                sh 'docker build -t DevMasters:latest .'
+                sh 'docker build -t devmasters:latest .'
             }
         }
         // RAMA DE PRUEBAS
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     sh 'kubectl apply -f k8s/deployment.yaml -n pruebas'
-                    sh 'kubectl rollout restart deployment/DevMasters -n pruebas'
+                    sh 'kubectl rollout restart deployment/devmasters -n pruebas'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     sh 'kubectl apply -f k8s/deployment.yaml -n produccion'
-                    sh 'kubectl rollout restart deployment/DevMasters -n produccion'
+                    sh 'kubectl rollout restart deployment/devmasters -n produccion'
                 }
             }
         }

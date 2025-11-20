@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: DevMasters
+  name: devmasters
 spec:
   replicas: 3  # <--- ¡IMPORTANTE! Mínimo 2 para Alta Disponibilidad.
   selector:
     matchLabels:
-      app: DevMasters
+      app: devmasters
   template:
     metadata:
       labels:
-        app: DevMasters
+        app: devmasters
     spec:
       containers:
       - name: contenedor1
@@ -25,7 +25,7 @@ metadata:
 spec:
   type: LoadBalancer  # <--- Esto activa la distribución de tráfico
   selector:
-    app: DevMasters
+    app: devmasters
   ports:
     - protocol: TCP
       port: 80
